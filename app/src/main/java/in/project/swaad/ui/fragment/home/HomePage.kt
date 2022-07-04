@@ -2,13 +2,14 @@ package `in`.project.swaad.ui.fragment.home
 
 import `in`.project.swaad.R
 import `in`.project.swaad.ui.PopularCurationsDataClass
-import `in`.project.swaad.ui.theme.Black
-import `in`.project.swaad.ui.theme.CardTextColor
-import `in`.project.swaad.ui.theme.Mulish
-import `in`.project.swaad.ui.theme.Poppins
-import androidx.compose.foundation.*
+import `in`.project.swaad.ui.theme.*
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -27,17 +28,20 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.navigation.NavController
 
+@OptIn(ExperimentalFoundationApi::class)
 @Preview(showBackground = true)
 @Composable
 fun HomePage(navController: NavController? = null) {
 	ConstraintLayout(Modifier
 						 .fillMaxWidth()
 						 .background(Color.White)
-						 .verticalScroll(rememberScrollState())) {
+//						 .verticalScroll(rememberScrollState())
+	) {
 		val (icLocation, location,
 			textField, popularCreationsTxt,
 			popularCreationsLazy, recommendedTxt,
-		recommendedLazy) = createRefs()
+			recommendedLazy, morePopularCurations,
+			moreRecommended) = createRefs()
 
 		Icon(painter = painterResource(id = R.drawable.ic_location), contentDescription = null,
 			 modifier = Modifier.constrainAs(icLocation) {
@@ -61,7 +65,7 @@ fun HomePage(navController: NavController? = null) {
 							  Icon(painter = painterResource(id = R.drawable.ic_search),
 								   contentDescription = null)
 						  }, colors = TextFieldDefaults.outlinedTextFieldColors(
-				disabledLeadingIconColor = Black,
+				disabledLeadingIconColor = CustomBlack,
 				disabledBorderColor = Color(0xFFE7E6E8),
 				disabledTextColor = Color(0xFF6E6775)
 			), shape = RoundedCornerShape(4.dp), modifier = Modifier.constrainAs(textField) {
@@ -78,6 +82,14 @@ fun HomePage(navController: NavController? = null) {
 				 start.linkTo(textField.start)
 			 })
 
+		Icon(painter = painterResource(id = R.drawable.ic_arrow),
+			 contentDescription = "More Popular Curations",
+			 modifier = Modifier.constrainAs(morePopularCurations) {
+				 end.linkTo(parent.end, 27.dp)
+				 top.linkTo(popularCreationsTxt.top)
+				 bottom.linkTo(popularCreationsTxt.bottom)
+			 })
+
 		LazyRow(modifier = Modifier
 			.constrainAs(popularCreationsLazy) {
 				start.linkTo(parent.start)
@@ -85,49 +97,97 @@ fun HomePage(navController: NavController? = null) {
 				end.linkTo(parent.end)
 				width = Dimension.fillToConstraints
 			}, contentPadding = PaddingValues(start = 19.dp, end = 14.dp)) {
-			val lst = listOf(PopularCurationsDataClass(R.drawable.sweets, "Sweets"),
-							 PopularCurationsDataClass(R.drawable.chinese, "Chinese"),
-							 PopularCurationsDataClass(R.drawable.burger, "Burgers"),
-							 PopularCurationsDataClass(R.drawable.sweets, "Dosa"),
-							 PopularCurationsDataClass(R.drawable.chinese, "Desserts"))
+			val lst = listOf(PopularCurationsDataClass(R.drawable.ic_italian, "Italian"),
+							 PopularCurationsDataClass(R.drawable.ic_chicken, "Chicken"),
+							 PopularCurationsDataClass(R.drawable.ic_noodles, "Noodles"),
+							 PopularCurationsDataClass(R.drawable.ic_drinks, "Drinks"),
+							 PopularCurationsDataClass(R.drawable.ic_chicken, "Chicken"))
 			items(5) {
 				PopularCurationsItem(popularCurationsDataClass = lst[it])
-				Spacer(modifier = Modifier.padding(end = 24.dp))
+				Spacer(modifier = Modifier.padding(end = 16.dp))
 			}
 		}
 
 		Text(text = "Recommended for you", fontFamily = Poppins, fontWeight = FontWeight.Medium,
 			 fontSize = 16.sp,
 			 modifier = Modifier.constrainAs(recommendedTxt) {
-				 top.linkTo(popularCreationsLazy.bottom, margin = 16.dp)
+				 top.linkTo(popularCreationsLazy.bottom, margin = 32.dp)
 				 start.linkTo(textField.start)
 			 })
 
+		Icon(painter = painterResource(id = R.drawable.ic_arrow),
+			 contentDescription = "More Popular Curations",
+			 modifier = Modifier.constrainAs(moreRecommended) {
+				 end.linkTo(parent.end, 27.dp)
+				 top.linkTo(recommendedTxt.top)
+				 bottom.linkTo(recommendedTxt.bottom)
+			 })
+
+		LazyVerticalGrid(cells = GridCells.Fixed(2),
+						 modifier = Modifier
+							 .constrainAs(recommendedLazy) {
+								 top.linkTo(recommendedTxt.bottom, 16.dp)
+								 start.linkTo(parent.start)
+								 end.linkTo(parent.end)
+							 }, contentPadding =
+						 PaddingValues
+							 (start = 16
+							 .dp)) {
+			items(6) {
+				RecommendedItem()
+			}
+		}
 	}
 }
 
 @Composable
 private fun PopularCurationsItem(popularCurationsDataClass: PopularCurationsDataClass) {
 	Column(verticalArrangement = Arrangement.Center,
-		   horizontalAlignment = Alignment.CenterHorizontally) {
-		Image(painter = painterResource(popularCurationsDataClass.image), contentDescription =
+		   horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier
+			.background(CustomLightOrange, RoundedCornerShape(14.dp))) {
+		Icon(painter = painterResource(popularCurationsDataClass.image), contentDescription =
 		popularCurationsDataClass.txt,
-			  modifier = Modifier
-				  .padding(bottom = 5.dp)
-				  .size(112.dp), contentScale = ContentScale.Crop)
+			 modifier = Modifier
+				 .padding(bottom = 8.dp, top = 16.dp, start = 30.dp, end = 30.dp),
+		tint = CustomOrange)
+
 		Text(
 			text = popularCurationsDataClass.txt,
 			fontWeight = FontWeight.Medium,
-			fontSize = 12.sp,
+			fontSize = 10.sp,
 			fontFamily = Poppins,
-			color = Color(0xFF8C8581))
+			color = CustomOrange,
+		modifier = Modifier.padding(bottom = 16.dp))
 	}
 }
 
 @Composable
 private fun RecommendedItem() {
-	Card(shape = RoundedCornerShape(8.dp)) {
-		Text(text = "Heaven’s Food", fontFamily = Poppins, fontWeight = FontWeight.Medium,
-		fontSize = 16.sp, color = CardTextColor, overflow = TextOverflow.Ellipsis)
+	Card(shape = RoundedCornerShape(8.dp), elevation = 4.dp,
+		 modifier = Modifier.padding(end = 8.dp, bottom = 16.dp, top = 8.dp)) {
+		Column {
+			Text(text = "Heaven’s Food", fontFamily = Poppins, fontWeight = FontWeight.Medium,
+				 fontSize = 16.sp, color = CardRestaurantTxtColor, overflow = TextOverflow
+					.Ellipsis, modifier = Modifier.padding(start = 24.dp, top = 24.dp))
+
+			Text(text = "122 RDC,Ghaziabad", fontFamily = Poppins, modifier = Modifier.padding
+				(top = 2.dp, start = 24.dp),
+				 fontSize = 12.sp, color = CardAddressTxtColor, overflow = TextOverflow.Ellipsis)
+
+			Row(modifier = Modifier.padding(start = 24.dp, top = 4.dp)) {
+				Icon(painter = painterResource(id = R.drawable.ic_star), contentDescription = null,
+					 modifier = Modifier.padding(end = 4.dp))
+
+				Text(text = "4.5", fontFamily = Poppins, fontWeight = FontWeight.Medium,
+					 fontSize = 16.sp)
+			}
+
+			Image(painter = painterResource(id = R.drawable.dish),
+				  contentDescription = null,
+				  contentScale = ContentScale.Crop,
+				  modifier = Modifier
+					  .width(175.dp)
+					  .height(170.dp))
+		}
 	}
 }
