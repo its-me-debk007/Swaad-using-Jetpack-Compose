@@ -14,16 +14,20 @@ val Poppins = FontFamily(
 	Font(R.font.poppins_bold, FontWeight.Bold)
 )
 
+val Mulish = FontFamily(
+	Font(R.font.mulish_medium, FontWeight.Medium)
+)
+
 // Set of Material typography styles to start with
 val Typography = Typography(
 	defaultFontFamily = Poppins,
-	body1 = TextStyle(
-		fontFamily = FontFamily.Default,
-		fontWeight = FontWeight.Normal,
-		fontSize = 16.sp
-	),
+//	body1 = TextStyle(
+//		fontFamily = FontFamily.Default,
+//		fontWeight = FontWeight.Normal,
+//		fontSize = 16.sp
+//	),
 	button = TextStyle(
-		fontFamily = FontFamily.Default,
+//		fontFamily = Poppins,
 		fontWeight = FontWeight.Bold
 	),
 	/* Other default text styles to override
