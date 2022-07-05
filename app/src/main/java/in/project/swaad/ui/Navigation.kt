@@ -10,7 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun MainContent() {
+fun NavGraph() {
 	val navController = rememberNavController()
 	Surface(Modifier.fillMaxSize()) {
 		NavHost(navController = navController, startDestination = "login") {

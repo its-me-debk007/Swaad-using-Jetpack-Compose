@@ -172,7 +172,7 @@ private fun RecommendedItem() {
 
 			Text(text = "122 RDC,Ghaziabad", fontFamily = Poppins, modifier = Modifier.padding
 				(top = 2.dp, start = 24.dp),
-				 fontSize = 12.sp, color = CardAddressTxtColor, overflow = TextOverflow.Ellipsis)
+				 fontSize = 12.sp, color = CustomGrey, overflow = TextOverflow.Ellipsis)
 
 			Row(modifier = Modifier.padding(start = 24.dp, top = 4.dp)) {
 				Icon(painter = painterResource(id = R.drawable.ic_star), contentDescription = null,
