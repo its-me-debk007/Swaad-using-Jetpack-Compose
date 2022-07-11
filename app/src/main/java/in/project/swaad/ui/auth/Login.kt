@@ -1,4 +1,4 @@
-package `in`.project.swaad.ui.fragment
+package `in`.project.swaad.ui.auth
 
 import `in`.project.swaad.R
 import `in`.project.swaad.ui.theme.*

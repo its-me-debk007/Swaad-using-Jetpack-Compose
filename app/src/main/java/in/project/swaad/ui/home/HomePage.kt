@@ -1,4 +1,4 @@
-package `in`.project.swaad.ui.fragment.home
+package `in`.project.swaad.ui.home
 
 import `in`.project.swaad.R
 import `in`.project.swaad.ui.PopularCurationsDataClass

@@ -1,8 +1,8 @@
 package `in`.project.swaad
 
 import `in`.project.swaad.ui.BottomNavItems
-import `in`.project.swaad.ui.fragment.home.Account
-import `in`.project.swaad.ui.fragment.home.HomePage
+import `in`.project.swaad.ui.home.Account
+import `in`.project.swaad.ui.home.HomePage
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
