@@ -2,8 +2,6 @@ package `in`.project.swaad.ui.auth
 
 import `in`.project.swaad.R
 import `in`.project.swaad.ui.theme.Poppins
-import `in`.project.swaad.ui.theme.SwaadTheme
-import `in`.project.swaad.ui.theme.TextFieldBorderColor
 import `in`.project.swaad.ui.theme.TextFieldLabelColor
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.PaddingValues
@@ -39,72 +37,70 @@ fun ForgotPassword(navController: NavController? = null) {
 	var email by rememberSaveable { mutableStateOf("") }
 	val scrollState = rememberScrollState()
 	val textFieldColors = TextFieldDefaults.outlinedTextFieldColors(
-		unfocusedBorderColor = TextFieldBorderColor,
+		unfocusedBorderColor = Color.Gray,
 		leadingIconColor = Color.Black,
 		trailingIconColor = Color.Black,
 		unfocusedLabelColor = TextFieldLabelColor
 	)
 
-	SwaadTheme {
-		ConstraintLayout(modifier = Modifier
-			.fillMaxWidth()
-			.verticalScroll(scrollState)) {
-			val (image, heading,
-				emailTxtField, nextBtn) = createRefs()
+	ConstraintLayout(modifier = Modifier
+		.fillMaxWidth()
+		.verticalScroll(scrollState)) {
+		val (image, heading,
+			emailTxtField, nextBtn) = createRefs()
 
-			Image(painter = painterResource(id = R.drawable.forgot_password_image),
-				  contentDescription = null, modifier = Modifier.constrainAs(image) {
-					start.linkTo(parent.start)
-					end.linkTo(parent.end)
-					top.linkTo(parent.top, margin = 88.dp)
-				})
+		Image(painter = painterResource(id = R.drawable.forgot_password_image),
+			  contentDescription = null, modifier = Modifier.constrainAs(image) {
+				start.linkTo(parent.start)
+				end.linkTo(parent.end)
+				top.linkTo(parent.top, margin = 88.dp)
+			})
 
-			Text(buildAnnotatedString {
-				withStyle(SpanStyle(fontSize = 24.sp)) {
-					append("Forgot Password?\n")
-				}
-				withStyle(SpanStyle(color = Color(0xFF999999), fontSize = 14.sp)) {
-					append("Enter the email address associated with your account for OTP.")
-				}
-			}, modifier = Modifier.constrainAs(heading) {
-				start.linkTo(parent.start, margin = 24.dp)
-				end.linkTo(parent.end, margin = 24.dp)
-				width = Dimension.fillToConstraints
-				top.linkTo(image.bottom, margin = 56.dp)
-			}, fontFamily = Poppins)
-
-			OutlinedTextField(
-				value = email, onValueChange = { email = it },
-				shape = RoundedCornerShape(32.dp),
-				colors = textFieldColors,
-				singleLine = true,
-				leadingIcon = {
-					Icon(painter = painterResource(id = R.drawable.ic_mail),
-						 contentDescription = null)
-				},
-				label = { Text(text = "Email") },
-				modifier = Modifier.constrainAs(emailTxtField) {
-					start.linkTo(heading.start)
-					end.linkTo(heading.end)
-					width = Dimension.fillToConstraints
-					top.linkTo(heading.bottom, margin = 30.dp)
-				},
-				keyboardOptions = KeyboardOptions(keyboardType =
-												  KeyboardType.Email,
-												  imeAction = ImeAction.Done),
-
-				)
-
-			Button(onClick = { /*TODO*/ }, modifier = Modifier.constrainAs(nextBtn) {
-				top.linkTo(emailTxtField.bottom, margin = 32.dp)
-				start.linkTo(emailTxtField.start)
-				end.linkTo(emailTxtField.end)
-				width = Dimension.fillToConstraints
-				bottom.linkTo(parent.bottom, margin = 8.dp)
-			}, contentPadding = PaddingValues(vertical = 14.dp),
-				   elevation = ButtonDefaults.elevation(0.dp)) {
-				Text(text = "Next", fontFamily = Poppins)
+		Text(buildAnnotatedString {
+			withStyle(SpanStyle(fontSize = 24.sp)) {
+				append("Forgot Password?\n")
 			}
+			withStyle(SpanStyle(color = Color(0xFF999999), fontSize = 14.sp)) {
+				append("Enter the email address associated with your account for OTP.")
+			}
+		}, modifier = Modifier.constrainAs(heading) {
+			start.linkTo(parent.start, margin = 24.dp)
+			end.linkTo(parent.end, margin = 24.dp)
+			width = Dimension.fillToConstraints
+			top.linkTo(image.bottom, margin = 56.dp)
+		}, fontFamily = Poppins)
+
+		OutlinedTextField(
+			value = email, onValueChange = { email = it },
+			shape = RoundedCornerShape(32.dp),
+			colors = textFieldColors,
+			singleLine = true,
+			leadingIcon = {
+				Icon(painter = painterResource(id = R.drawable.ic_mail),
+					 contentDescription = null)
+			},
+			label = { Text(text = "Email") },
+			modifier = Modifier.constrainAs(emailTxtField) {
+				start.linkTo(heading.start)
+				end.linkTo(heading.end)
+				width = Dimension.fillToConstraints
+				top.linkTo(heading.bottom, margin = 30.dp)
+			},
+			keyboardOptions = KeyboardOptions(keyboardType =
+											  KeyboardType.Email,
+											  imeAction = ImeAction.Done),
+
+			)
+
+		Button(onClick = { /*TODO*/ }, modifier = Modifier.constrainAs(nextBtn) {
+			top.linkTo(emailTxtField.bottom, margin = 32.dp)
+			start.linkTo(emailTxtField.start)
+			end.linkTo(emailTxtField.end)
+			width = Dimension.fillToConstraints
+			bottom.linkTo(parent.bottom, margin = 8.dp)
+		}, contentPadding = PaddingValues(vertical = 14.dp),
+			   elevation = ButtonDefaults.elevation(0.dp)) {
+			Text(text = "Next", fontFamily = Poppins)
 		}
 	}
 }

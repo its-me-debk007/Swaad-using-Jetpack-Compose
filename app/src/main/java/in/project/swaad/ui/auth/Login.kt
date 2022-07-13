@@ -1,7 +1,10 @@
 package `in`.project.swaad.ui.auth
 
 import `in`.project.swaad.R
-import `in`.project.swaad.ui.theme.*
+import `in`.project.swaad.ui.theme.ColorPrimary
+import `in`.project.swaad.ui.theme.CustomYellow
+import `in`.project.swaad.ui.theme.Poppins
+import `in`.project.swaad.ui.theme.TextFieldLabelColor
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
@@ -41,123 +44,121 @@ fun Login(navController: NavController? = null) {
 	var txt2 by rememberSaveable { mutableStateOf("") }
 	var isPasswordVisible by rememberSaveable { mutableStateOf(false) }
 	val textFieldColors = TextFieldDefaults.outlinedTextFieldColors(
-		unfocusedBorderColor = TextFieldBorderColor,
+		unfocusedBorderColor = Color.Gray,
 		leadingIconColor = Color.Black,
 		trailingIconColor = Color.Black,
 		unfocusedLabelColor = TextFieldLabelColor
 	)
 
-	SwaadTheme {
-		ConstraintLayout(Modifier
-							 .fillMaxWidth()
-							 .verticalScroll(rememberScrollState())) {
-			val (image, emailTxtField,
-				password, forgotPassword,
-				signInBtn, signUp) = createRefs()
+	ConstraintLayout(Modifier
+						 .fillMaxWidth()
+						 .verticalScroll(rememberScrollState())) {
+		val (image, emailTxtField,
+			password, forgotPassword,
+			signInBtn, signUp) = createRefs()
 
-			Image(painter = painterResource(id = R.drawable.login_image),
-				  contentDescription = null,
-				  modifier = Modifier
-					  .constrainAs(image) {
-						  top.linkTo(parent.top, margin = 16.dp)
-						  end.linkTo(parent.end)
-						  start.linkTo(parent.start)
-					  }
-			)
+		Image(painter = painterResource(id = R.drawable.login_image),
+			  contentDescription = null,
+			  modifier = Modifier
+				  .constrainAs(image) {
+					  top.linkTo(parent.top, margin = 16.dp)
+					  end.linkTo(parent.end)
+					  start.linkTo(parent.start)
+				  }
+		)
 
-			OutlinedTextField(
-				value = email, onValueChange = { email = it },
-				modifier = Modifier.constrainAs(emailTxtField) {
-					start.linkTo(parent.start, margin = 24.dp)
-					end.linkTo(parent.end, margin = 24.dp)
-					top.linkTo(image.bottom, margin = 52.87.dp)
-					width = Dimension.fillToConstraints
-				},
-				singleLine = true,
-				shape = RoundedCornerShape(32.dp),
-				colors = textFieldColors,
-				label = { Text(text = "Email", fontWeight = FontWeight.Medium) },
-				keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email,
-												  imeAction = ImeAction.Next),
-				leadingIcon = {
-					Icon(painter = painterResource(id = R.drawable.ic_mail),
-						 contentDescription = null)
-				}
-			)
-
-			OutlinedTextField(
-				value = txt2, onValueChange = { txt2 = it },
-				modifier = Modifier
-					.constrainAs(password) {
-						start.linkTo(parent.start, margin = 24.dp)
-						end.linkTo(parent.end, margin = 24.dp)
-						top.linkTo(emailTxtField.bottom, margin = 16.dp)
-						width = Dimension.fillToConstraints
-					},
-				singleLine = true,
-				shape = RoundedCornerShape(32.dp),
-				label = { Text(text = "Password", fontWeight = FontWeight.Medium) },
-				leadingIcon = {
-					Icon(painter = painterResource(id = R.drawable.ic_lock),
-						 contentDescription = null)
-				},
-				trailingIcon = {
-					Icon(
-						painter = painterResource(id = if (!isPasswordVisible) R.drawable.ic_visibility
-						else R.drawable.ic_visibility_off),
-						contentDescription = "Toggle password visibility",
-						modifier = Modifier
-							.clickable { isPasswordVisible = !isPasswordVisible },
-					)
-				},
-				colors = textFieldColors,
-				keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password,
-												  imeAction = ImeAction.Done),
-				visualTransformation = if (isPasswordVisible) VisualTransformation.None else
-					PasswordVisualTransformation(),
-			)
-
-			Text(text = "Forgot Password?", modifier = Modifier
-				.constrainAs(forgotPassword) {
-					start.linkTo(parent.start, margin = 24.dp)
-					top.linkTo(password.bottom, margin = 16.dp)
-				}
-				.clickable { navController?.navigate("forgotPassword") },
-				 fontSize = 14.sp, fontFamily = Poppins)
-
-			Button(
-				onClick = { /*TODO*/ },
-				modifier = Modifier.constrainAs(signInBtn) {
-					end.linkTo(parent.end, margin = 24.dp)
-					start.linkTo(parent.start, margin = 24.dp)
-					top.linkTo(forgotPassword.bottom, margin = 16.dp)
-					width = Dimension.fillToConstraints
-				},
-				colors = ButtonDefaults.buttonColors(ColorPrimary),
-				shape = RoundedCornerShape(32.dp),
-				elevation = ButtonDefaults.elevation(0.dp),
-				contentPadding = PaddingValues(14.dp),
-			) {
-				Text(text = "Sign In", fontFamily = Poppins)
+		OutlinedTextField(
+			value = email, onValueChange = { email = it },
+			modifier = Modifier.constrainAs(emailTxtField) {
+				start.linkTo(parent.start, margin = 24.dp)
+				end.linkTo(parent.end, margin = 24.dp)
+				top.linkTo(image.bottom, margin = 52.87.dp)
+				width = Dimension.fillToConstraints
+			},
+			singleLine = true,
+			shape = RoundedCornerShape(32.dp),
+			colors = textFieldColors,
+			label = { Text(text = "Email", fontWeight = FontWeight.Medium) },
+			keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email,
+											  imeAction = ImeAction.Next),
+			leadingIcon = {
+				Icon(painter = painterResource(id = R.drawable.ic_mail),
+					 contentDescription = null)
 			}
+		)
 
-			Text(
-				buildAnnotatedString {
-					append("New here? ")
-					withStyle(SpanStyle(CustomYellow, fontWeight = FontWeight.Medium)) {
-						append("Sign up")
-					}
+		OutlinedTextField(
+			value = txt2, onValueChange = { txt2 = it },
+			modifier = Modifier
+				.constrainAs(password) {
+					start.linkTo(parent.start, margin = 24.dp)
+					end.linkTo(parent.end, margin = 24.dp)
+					top.linkTo(emailTxtField.bottom, margin = 16.dp)
+					width = Dimension.fillToConstraints
 				},
-				modifier = Modifier
-					.constrainAs(signUp) {
-						top.linkTo(signInBtn.bottom, margin = 32.dp)
-						start.linkTo(parent.start)
-						end.linkTo(parent.end)
-						bottom.linkTo(parent.bottom, margin = 8.dp)
-					}
-					.clickable { navController?.navigate("signUp") },
-				fontFamily = Poppins
-			)
+			singleLine = true,
+			shape = RoundedCornerShape(32.dp),
+			label = { Text(text = "Password", fontWeight = FontWeight.Medium) },
+			leadingIcon = {
+				Icon(painter = painterResource(id = R.drawable.ic_lock),
+					 contentDescription = null)
+			},
+			trailingIcon = {
+				Icon(
+					painter = painterResource(id = if (!isPasswordVisible) R.drawable.ic_visibility
+					else R.drawable.ic_visibility_off),
+					contentDescription = "Toggle password visibility",
+					modifier = Modifier
+						.clickable { isPasswordVisible = !isPasswordVisible },
+				)
+			},
+			colors = textFieldColors,
+			keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password,
+											  imeAction = ImeAction.Done),
+			visualTransformation = if (isPasswordVisible) VisualTransformation.None else
+				PasswordVisualTransformation(),
+		)
+
+		Text(text = "Forgot Password?", modifier = Modifier
+			.constrainAs(forgotPassword) {
+				start.linkTo(parent.start, margin = 24.dp)
+				top.linkTo(password.bottom, margin = 16.dp)
+			}
+			.clickable { navController?.navigate("forgotPassword") },
+			 fontSize = 14.sp, fontFamily = Poppins)
+
+		Button(
+			onClick = { /*TODO*/ },
+			modifier = Modifier.constrainAs(signInBtn) {
+				end.linkTo(parent.end, margin = 24.dp)
+				start.linkTo(parent.start, margin = 24.dp)
+				top.linkTo(forgotPassword.bottom, margin = 16.dp)
+				width = Dimension.fillToConstraints
+			},
+			colors = ButtonDefaults.buttonColors(ColorPrimary),
+			shape = RoundedCornerShape(32.dp),
+			elevation = ButtonDefaults.elevation(0.dp),
+			contentPadding = PaddingValues(14.dp),
+		) {
+			Text(text = "Sign In", fontFamily = Poppins)
 		}
+
+		Text(
+			buildAnnotatedString {
+				append("New here? ")
+				withStyle(SpanStyle(CustomYellow, fontWeight = FontWeight.Medium)) {
+					append("Sign up")
+				}
+			},
+			modifier = Modifier
+				.constrainAs(signUp) {
+					top.linkTo(signInBtn.bottom, margin = 32.dp)
+					start.linkTo(parent.start)
+					end.linkTo(parent.end)
+					bottom.linkTo(parent.bottom, margin = 8.dp)
+				}
+				.clickable { navController?.navigate("signUp") },
+			fontFamily = Poppins
+		)
 	}
 }

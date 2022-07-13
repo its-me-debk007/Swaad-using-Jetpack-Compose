@@ -1,6 +1,8 @@
 package `in`.project.swaad.network
 
-sealed class Response<T>(val data: T? = null, val errorMsg: String? = null) {
-	class Success<T>(data: T? = null) : Response<T>(data = data)
-	class Failure<T>(errorMsg: String) : Response<T>(errorMsg = errorMsg)
+sealed class Response<T>(val data: T? = null, val error: String? = null) {
+
+	class Success<T>(successData: T) : Response<T>(successData)
+
+	class Failure<T>(errorMsg: String? = null, errorData: T? = null) : Response<T>(errorData, errorMsg)
 }
